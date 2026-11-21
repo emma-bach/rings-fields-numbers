@@ -1,0 +1,263 @@
+%AMS packages - Symbols, "Theorem" and "Proof" Environments
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{physics}
+
+% Nicer Headers and Footers
+\usepackage{fancyhdr}
+
+\renewcommand{\chaptermark}[1]{
+	\markboth{\chaptername\ \thechapter:\ #1}
+	{}
+}
+
+\renewcommand{\sectionmark}[1]{
+	\markright{\thesection{}\ -- \ #1}
+	{}
+}
+
+\fancyhead[L]{\leftmark\\\rightmark}
+\fancyhead[R]{}
+
+\newcommand*\parttitle{}
+\let\origpart\part
+\renewcommand*{\part}[2][]{ %
+	\ifx\\#1\\% optional argument not present?
+	\origpart{#2}%
+	\renewcommand*\parttitle{#2}%
+	\else
+	\origpart[#1]{#2}%
+	\renewcommand*\parttitle{#1}%
+	\fi
+}
+\usepackage[yyyymmdd]{datetime}
+\renewcommand{\dateseparator}{-}
+
+% Table of Contents
+\usepackage[titles]{tocloft}
+\usepackage[titletoc]{appendix}
+
+% Tikz and Graphics
+\usepackage{tikz}
+\usepackage{tikz-cd}
+\usepackage{xcolor}
+\usepackage[many]{tcolorbox}
+
+% Nicer Underlining
+\usepackage{contour}
+\usepackage{ulem}
+
+% Multiple Text Columns
+\usepackage{multicol}
+
+% Margin Notes
+\usepackage{sidenotes}
+
+% FloatBarrier
+\usepackage{placeins} 
+
+% hyperref should be last apparently
+\usepackage{hyperref}
+
+% nicer text
+\usepackage{microtype} % general improvements to text appearance
+\usepackage[T2A,T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[osf, helvratio=.9]{newpxtext} % text font
+\usepackage{newpxmath} % math font
+
+
+%--- RENEWED COMMANDS ---
+
+% Variant Greek Letters
+\renewcommand\epsilon{\varepsilon}
+\renewcommand\phi{\varphi}
+
+\DeclareMathAlphabet{\mathbbold}{U}{bbold}{m}{n}
+\newcommand*{\boldone}{\mathbbold{1}}
+
+% Nicer Table of Contents
+\renewcommand\cftsecdotsep{\cftdot}
+\renewcommand\cftsubsecdotsep{\cftdot}
+
+%--- TEXT FORMATING ---
+
+% nice underlining
+\renewcommand{\ULdepth}{1.6pt}
+\contourlength{0.8pt}
+\newcommand{\ul}[1]{%
+	\uline{\phantom{#1}}%
+	\llap{\contour{white}{#1}}%
+}
+
+% shorthand
+\newcommand{\tbf}[1]{\textbf{#1}}
+\newcommand{\tn}[1]{\textnormal{#1}}
+\newcommand{\tit}[1]{\textit{#1}}
+\newcommand{\ttt}[1]{\texttt{#1}}
+
+% make \textbf automatically include math
+\let\oldtextbf=\textbf
+\renewcommand\textbf[1]{{\boldmath\oldtextbf{#1}}}
+
+\newcommand{\mc}[1]{\mathcal{#1}}
+
+\newcommand{\ol}[1]{\overline{{#1}}}
+
+% Underlined, bold, non-cursive Theorem Name
+\newcommand{\theoremname}[1]{\textnormal{\tbf{(#1):}}}
+
+% Starts a new paragraph without indentation
+% and with an empty line between paragraphs
+\newcommand*{\newpar}{\par\vspace{\baselineskip}\noindent}
+
+% Make inf height match sup height
+\renewcommand{\inf}{\mathop{\mathrm{inf}\vphantom{\mathrm{sup}}}}
+
+% Make tildes more readable
+\renewcommand{\tilde}{\widetilde}
+
+%--- RELATION SYMBOLS AND OPERATORS ---
+\newcommand{\surj}{\twoheadrightarrow}
+\newcommand{\inj}{\hookrightarrow}
+\newcommand{\iso}{\overset{\sim}{\rightarrow}}
+\newcommand{\symdiff}{\vartriangle}
+\newcommand{\trans}{\twoheadrightarrow}
+\newcommand{\tensor}{\otimes}
+\newcommand{\Tensor}{\bigotimes}
+\renewcommand{\mid}{~\middle|~}
+
+%--- STUFF IN FANCY BRACKETS ---
+\newcommand{\stack}[2]{\begin{array}{c} #1\\#2\end{array}}
+\newcommand{\trinom}[3]{\begin{pmatrix} #1\\#2\\#3\end{pmatrix}}
+\newcommand{\scalar}[2]{\left\langle #1, #2 \right\rangle}
+\newcommand{\angles}[1]{\left\langle #1 \right\rangle}
+\newcommand{\lr}{\qty}
+
+
+%--- LETTERS ---
+
+% mathbb
+\newcommand{\bC}{\mathbb{C}}
+\newcommand{\bF}{\mathbb{F}}
+\newcommand{\bN}{\mathbb{N}}
+\newcommand{\bQ}{\mathbb{Q}}
+\newcommand{\bR}{\mathbb{R}}
+\newcommand{\bZ}{\mathbb{Z}}
+
+% mathcal
+\newcommand{\cA}{\mathcal{A}}
+\newcommand{\cB}{\mathcal{B}}
+\newcommand{\cC}{\mathcal{C}}
+\newcommand{\cD}{\mathcal{D}}
+\newcommand{\cE}{\mathcal{E}}
+\newcommand{\cF}{\mathcal{F}}
+\newcommand{\cH}{\mathcal{H}}
+\newcommand{\cI}{\mathcal{I}}
+\newcommand{\cL}{\mathcal{L}}
+\newcommand{\cM}{\mathcal{M}}
+\newcommand{\cN}{\mathcal{N}}
+\newcommand{\cO}{\mathcal{O}}
+\newcommand{\cP}{\mathcal{P}}
+\newcommand{\cQ}{\mathcal{Q}}
+\newcommand{\cR}{\mathcal{R}}
+\newcommand{\cS}{\mathcal{S}}
+\newcommand{\cT}{\mathcal{T}}
+\newcommand{\cW}{\mathcal{W}}
+\newcommand{\cX}{\mathcal{X}}
+\newcommand{\cZ}{\mathcal{Z}}
+
+%mathfrac
+\newcommand{\fa}{\mathfrak{a}}
+\newcommand{\fb}{\mathfrak{b}}
+
+% real numbers in fancy costumes
+\newcommand{\barR}{\ol{\mathbb{R}}}
+\newcommand{\bRnn}{\mathbb{R}^{n \times n}}
+\newcommand{\bRmn}{\mathbb{R}^{m \times n}}
+\newcommand{\bRnm}{\mathbb{R}^{n \times m}}
+
+% vectors
+\newcommand{\vzero}{\kern-1.2pt\vec{\kern1.2pt 0}} 
+\renewcommand{\va}{\vec{a}}
+\renewcommand{\vb}{\vec{b}}
+\newcommand{\vc}{\vec{c}}
+\newcommand{\ve}{\vec{e}}
+\newcommand{\vF}{\vec{F}}
+\newcommand{\vh}{\vec{h}}
+\newcommand{\vp}{\vec{p}}
+\newcommand{\vr}{\vec{r}}
+\newcommand{\vs}{\vec{s}}
+\newcommand{\vT}{\vec{T}}
+\renewcommand{\vu}{\vec{u}}
+\renewcommand{\vv}{\vec{v}}
+\newcommand{\vw}{\vec{w}}
+\newcommand{\vW}{\vec{W}}
+\newcommand{\vx}{\vec{x}}
+\newcommand{\vy}{\vec{y}}
+\newcommand{\vz}{\vec{z}}
+
+\newcommand{\veta}{\vec{\eta}}
+
+\renewcommand{\grad}{\vec{\nabla}}
+
+% bold letters
+\newcommand{\tbA}{\mathbf{A}}
+\newcommand{\tbB}{\mathbf{B}}
+\newcommand{\tbC}{\mathbf{C}}
+\newcommand{\tbD}{\mathbf{D}}
+\newcommand{\tbE}{\mathbf{E}}
+\newcommand{\tbY}{\mathbf{Y}}
+\newcommand{\tbZ}{\mathbf{Z}}
+
+% sequences
+\newcommand{\an}{(a_n)_{n \in \bN}}
+\newcommand{\bn}{(b_n)_{n \in \bN}}
+\newcommand{\sn}{(s_n)_{n \in \bN}}
+\newcommand{\iinI}{_{i \in I}}
+\newcommand{\iinN}{_{i \in \bN}}
+
+% special functions
+\newcommand{\at}{\textnormal{at}}
+\newcommand{\ggT}{\textnormal{ggT}}
+\newcommand{\kgV}{\textnormal{kgV}}
+\newcommand{\id}{\textnormal{id}}
+\newcommand{\Id}{\textnormal{Id}}
+\newcommand{\im}{\textnormal{im}}
+\newcommand{\inv}{\textnormal{inv}}
+\newcommand{\ord}{\textnormal{ord}\ }
+\newcommand{\rang}{\textnormal{rang}\ }
+\renewcommand{\tr}{\textnormal{tr}\ }
+\newcommand{\vol}{\textnormal{vol}}
+\newcommand{\cond}{\textnormal{cond}}
+\newcommand{\sgn}{\textnormal{sgn}}
+\renewcommand{\char}{\textnormal{char}}
+\newcommand{\Frac}{\textnormal{Frac}}
+\newcommand{\card}{\textnormal{card}}
+
+% induced set systems
+\newcommand{\sigalg}[1]{\angles{#1}_\sigma}
+\newcommand{\boolalg}[1]{\angles{#1}_\cB}
+\newcommand{\mono}[1]{\angles{#1}_\cM}
+\newcommand{\monotone}[1]{\angles{#1}_\cM}
+
+% groups and sets
+\newcommand{\GL}{\text{GL}}
+\newcommand{\SO}{\text{SO}}
+\newcommand{\Hess}[1]{\text{Hess}(#1)}
+\renewcommand{\div}{\tn{div}}
+
+\newcommand{\Grp}{\textnormal{Grp}}
+\newcommand{\Mag}{\textnormal{Mag}}
+\newcommand{\Mon}{\textnormal{Mon}}
+\newcommand{\Ens}{\textnormal{Ens}}
+\newcommand{\Hom}{\textnormal{Hom}}
+\newcommand{\Aut}{\textnormal{Aut}}
+
+\newcommand{\Mat}{\textnormal{Mat}}
+\newcommand{\Matnn}{\textnormal{Mat}(n \times n)}
+\newcommand{\MatBB}[3]{\textnormal{Mat}^{#1}_{#2}\left(#3\right)}
+
+% align with exactly one number for labeling
+\NewDocumentEnvironment{nalign}{}{\equation\aligned}{\endaligned\endequation}

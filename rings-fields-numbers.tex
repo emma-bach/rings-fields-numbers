@@ -1,0 +1,449 @@
+\documentclass[10pt]{report}
+\makeatletter
+
+% custom margins
+\usepackage[a4paper,margin=1in,rmargin=2.5in,marginparsep=16pt, marginparwidth=1.5in]{geometry}
+\renewcommand{\baselinestretch}{1.2}
+
+% emma's long list of custom macros and universally used packages
+\include{./macros-and-packages-en.tex}
+
+% --- THEOREM AND PROOF TYPES ---
+% \newtheorem{codename}{printedname}[countedwith]
+\newtheorem{lemma}{Lemma}[section]
+\newtheorem{theorem}[lemma]{Theorem}
+\newtheorem{proposition}[lemma]{Proposition}
+\newtheorem{corollary}[lemma]{Corollary}
+
+\theoremstyle{definition}
+\newtheorem{definition}[lemma]{Definition}
+\newtheorem{example}[lemma]{Example}
+\newtheorem{counterexample}[lemma]{Counterexample}
+\newtheorem{observation}[lemma]{Observation}
+\newtheorem{anmerkung}[lemma]{Comment}
+\newtheorem{question}[lemma]{Question}
+\newtheorem{application}[lemma]{Application}
+\newtheorem{reminder}[lemma]{Reminder}
+\newtheorem{consequence}[lemma]{Consequence}
+\newtheorem{summary}[lemma]{Summary}
+
+% --- CUSTOM ENVIRONMENTS ---
+
+% sketchy proofs marked with untrustworthy QED symbol
+\newenvironment{proofsketch}{\begin{proof}[Beweisskizze]\renewcommand*{\qedsymbol}{\("\square"\)}}{\end{proof}}
+
+% Mark proofs by a vertical line on the left side
+\tcolorboxenvironment{proof}{
+	colback=white,
+	boxrule=0pt,
+	frame hidden,
+	borderline west={1.5pt}{0pt}{black!33!white},
+	before skip=0.75cm,
+	after skip=0.75cm,
+	sharp corners,
+	breakable,
+	enhanced,
+}
+
+\newtcbtheorem[use counter = lemma, number within = section]{importanttheorem}{Theorem}{colback=white,
+	colframe=black,
+	sharp corners,
+	enhanced,
+	attach boxed title to top left ={
+		xshift = 8pt, 
+		yshift = -\tcboxedtitleheight/2,
+		yshifttext=-\tcboxedtitleheight/2
+	},
+	boxed title style={
+		colframe = white
+	},
+	colbacktitle=white,
+	coltitle=black,
+	fonttitle=\bfseries,
+	boxrule=1.5pt
+}{th}
+
+\newtcbtheorem[use counter = lemma, number within = section]{importantdefinition}{Definition}{colback=white,
+	colframe=black,
+	sharp corners,
+	enhanced,
+	attach boxed title to top left ={
+		xshift = 8pt, 
+		yshift = -\tcboxedtitleheight/2,
+		yshifttext=-\tcboxedtitleheight/2
+	},
+	%minipage boxed title*=-3cm,
+	boxed title style={
+		colframe = white
+	},
+	colbacktitle=white,
+	coltitle=black,
+	fonttitle=\bfseries,
+	boxrule=1.5pt}{th}
+
+\newtcbtheorem[use counter = lemma, number within = section]{importantcorollary}{Corollary}{colback=white,
+	colframe=black,
+	sharp corners,
+	enhanced,
+	attach boxed title to top left ={
+		xshift = 8pt, 
+		yshift = -\tcboxedtitleheight/2,
+		yshifttext=-\tcboxedtitleheight/2
+	},
+	%minipage boxed title*=-3cm,
+	boxed title style={
+		colframe = white
+	},
+	colbacktitle=white,
+	coltitle=black,
+	fonttitle=\bfseries,
+	boxrule=1.5pt
+}{th}
+
+\newtcbtheorem[use counter = lemma, number within = section]{importantlemma}{Lemma}{colback=white,
+	colframe=black,
+	sharp corners,
+	enhanced,
+	attach boxed title to top left ={
+		xshift = 8pt, 
+		yshift = -\tcboxedtitleheight/2,
+		yshifttext=-\tcboxedtitleheight/2
+	},
+	%minipage boxed title*=-3cm,
+	boxed title style={
+		colframe = white
+	},
+	colbacktitle=white,
+	coltitle=black,
+	fonttitle=\bfseries,
+	boxrule=1.5pt
+}{th}
+
+\newtcolorbox{importantbox}{colback=white,
+	colframe=black,
+	sharp corners,
+	enhanced
+}
+
+\renewenvironment{proofsketch}{\begin{proof}[Proof Sketch]\renewcommand*{\qedsymbol}{\("\square"\)}}{\end{proof}}
+
+\begin{document}
+	\include{title}
+	\tableofcontents
+	\chapter{Groups}
+	(TODO: move this section into a seperate pdf)
+	\begin{theorem}
+		Let $g \in G$. and $k \in \bZ$. Then if $\ord g = \infty$, we have $\ord g^k = \infty$, and otherwise we have
+		\begin{align*}
+			\ord(g^k) = \frac{\ord g}{\gcd(\ord g,k)}
+		\end{align*}
+	\end{theorem}
+	\begin{proof}
+		\begin{enumerate}
+			\item 
+			\item We have $\gcd(\ord g,k) ~|~ k$, and thus we also have
+			\begin{align*}
+				\ord g ~~|~~ \frac{\ord g \cdot k}{\gcd(\ord g,k)},
+			\end{align*}
+			which means
+			\begin{align*}
+				(g^k)^\frac{\ord g}{\gcd(\ord g,k)} &= g^\frac{\ord g \cdot k}{\gcd(\ord g,k)}\\
+				&= e
+			\end{align*}
+			It remains to show that $\frac{\ord g}{\gcd(\ord g,k)}$ is minimal. Let $m \in \bN$ such that $(g^k)^m = g^{km} = 1$. Then $\ord g$ divides $km$, which means that 
+			\begin{align*}
+				\frac{\ord g}{\gcd(\ord g,k)} ~~|~~ m
+			\end{align*}
+			Giving us our desired minimality.
+		\end{enumerate}
+	\end{proof}
+	\begin{corollary}
+		Let $n \in \bZ/m\bZ$. Then we have
+		\begin{align*}
+			\ord n = \frac{m}{\gcd(n,m)}
+		\end{align*}
+	\end{corollary}
+	\begin{proof}
+		\begin{align*}
+			\ord n 
+			&= \ord(n \cdot 1)\\
+			&= \frac{\ord 1}{\gcd(\ord 1),n}\\
+			&= \frac{m}{\gcd(m,n)}
+		\end{align*}
+	\end{proof}
+	\begin{theorem}
+		All cyclic groups are isomorphic to each other.
+	\end{theorem}
+	In particular, every cyclic group of order $n$ is isomorphic to $\bZ/n\bZ$.
+	\begin{theorem}
+		Every subgroup of a cyclic group is again cyclic.
+	\end{theorem}
+	\begin{proof}
+		Let $G$ be a cyclic group. Let $H$ be a subgroup. If $H$ wasn't cylic, then there would need to be elements $h, h' \in H$ such that neither of the two can be generated by a single element.
+		\newpar
+		Since $G$ itself is cyclic, we can find a generator $g \in G$. Then we get $n,n' \in \bZ$ such that
+		\begin{align*}
+			h &= n \cdot g\\
+			h'&= n' \cdot g
+		\end{align*}
+		But now $\gcd(n, n')$ divides both $n$ and $n'$, and thus $(\gcd(n, n') \cdot g)$ can generate both $h$ and $h'$.
+	\end{proof}
+	\begin{theorem}
+		Let $m \in \bN$. Then every subgroup $H \subset \bZ/m\bZ$ takes the form
+		\begin{align*}
+			H = d\bZ/m\bZ \cong \bZ/\frac{m}{d}\bZ
+		\end{align*}
+		for some divisor $d$ of $m$.
+	\end{theorem}
+	\begin{proof}
+		By Lagrange, the order of $H$ must divide $m$. Thus we trivially get $H  \cong \bZ/\frac{m}{d}\bZ \cong d\bZ/m\bZ$.
+		\newpar
+		However, we want to establish true equality, not just equality up to isomorphism. For this, remember that an element of $n \in \bZ/m\bZ$ has order $\frac{n}{\gcd(n,m)}$. This means that any $n$ that generates a cyclic group of order $\frac{m}{d}$ must also have $d$ as a divisor, and thus we have $n \in d\bZ/m\bZ$ and $\angles{n} = d\bZ/m\bZ$.
+	\end{proof}
+	Since $d\bZ/m\bZ$ is a group for every divisor $d$, we thus get a bijection between divisors of $m$ and subgroups of $\bZ/m\bZ$.
+	\chapter{Rings}
+	\begin{importanttheorem}{Universal property of surjective ring homomorphisms}{}	
+		Let $s : R \surj Q$ be a surjective ring homomorphism. Let $\phi : R \to Q$ be an arbitrary ring homomorphism. Then $\phi$ can be factored over $s$, i.e.
+		there exists a ring homomorphism $\ol \phi : Q \to S$ such that $\phi = \ol \phi \circ s$, if and only if $\ker(\phi) \supset \ker(s)$. If $\ol \phi$ exists, it is unique.
+	\end{importanttheorem}
+	\begin{importantdefinition}{Ideals}{}
+		Let $R$ be a ring. Then an \tbf{ideal} of $R$ is a subgroup $I \subset (R,+)$ that is closed under multiplication from the left and from the right.
+	\end{importantdefinition}
+	$R$ and $\lr{0}$ are ideals in any arbitrary ring $R$.
+	If $R$ is commutative, then for any $a \in R$, the set $Ra$ of multiples of $a$ is an ideal. Any intersection of ideals is again an ideal, and we denote the ideal generated by a set $T \subset R$ as $\angles{T}_R$ or simply as $\angles{T}$. If an ideal can be generated by a single element, we call it a \tbf{principal ideal}.
+	\newpar
+	A major reason we care about ideals is that they are the ring theoretic analogue of normal divisors, i.e. the subsets on which we can define quotient rings:
+	\begin{importanttheorem}{Quotient Ring}{}
+		Let $R$ be a ring and $I \subset R$ be an ideal. Then the quotient $R/I$ forms a ring, and the canonical quotient map $q : R \to R/I$ is a surjective ring homomorphism with $I$ as its kernel.
+	\end{importanttheorem}
+	\begin{theorem}
+		Given a commutative ring $R$ and $a,b \in R$, we have
+		\begin{align*}
+			a ~|~ b 
+			&\Leftrightarrow b \in \angles{a}\\
+			&\Leftrightarrow \angles{b} \subseteq \angles{a}
+		\end{align*}
+	\end{theorem}
+	\begin{theorem}
+		Given a ring $R$ and two ideals $\fa,\fb \subset R$, their sum
+		\begin{align*}
+			\fa + \fb := \lr{a + b \mid a \in \fa, b \in \fb}
+		\end{align*} 
+		is also an ideal of $R$.
+	\end{theorem}
+	The product 
+	\begin{align*}
+		\fa\fb := \lr{a \cdot b \mid a \in \fa, b \in \fb}
+	\end{align*}
+	of two ideals is, however, not necessarily an ideal.
+	\begin{lemma}
+		Let $R$ be commutative. Let $\fa_1, \hdots, \fa_n \subset R$ be a set of ideals. Then we have
+		\begin{align*}
+			\angles{\prod_{i = 1}^n \fa_i} = \bigcap_{i = 1}^n \fa_i
+		\end{align*}
+	\end{lemma}
+	\begin{importanttheorem}{Quotient Rings as Vector Spaces}{}
+		Given a field $K$ and a non-zero polynomial $P \in K[X] \setminus \lr{0}$, the quotient ring $K[X]/\angles{P}$ forms a $K$-vector space of dimension
+		\begin{align*}
+			\dim_K K[X]/\angles{P} = \deg P,
+		\end{align*}
+		of which the monomials $X^d$ with $0 \leq d < \deg P$ form a basis.
+	\end{importanttheorem}
+	\begin{proposition}
+		Let $R$ be a ring and let $I \subset R$ be one of its ideals. Then we have $R[X]/I[X] = (R/I)[X]$.
+	\end{proposition}
+	\begin{importanttheorem}{Noether's first isomorphism theorem for rings}{}
+		Let $\phi : R \to S$ be a ring homomorphism. Then:
+		\begin{enumerate}
+			\item $\ker \phi$ is an ideal in $R$,
+			\item $\im \phi$ is a subring of $S$,
+			\item We have $\im \phi \cong R / \ker \phi$, with the isomorphism $\ol \phi : R / \ker \phi  \cong \im \phi$ induced by the quotient map.
+		\end{enumerate}
+	\end{importanttheorem}
+	\begin{lemma}
+		Let $R$ be a ring. Let $\fa_1, \hdots, \fa_n$ be a set of ideals of $R$ such that $i \neq j$ implies $\fa_i + \fa_j = R$.
+		\newpar
+		Then the product of the quotient maps is a surjective map
+		\begin{align*}
+			q : R \surj \prod_{i = 1}^n R / \fa_i,
+		\end{align*}
+		and its kernel is given by the intersection of the ideals.
+	\end{lemma}
+	\begin{importantcorollary}{Abstract Chinese remainder theorem}{}
+		Let $R$ be a commutative ring. Let $\fa_1, \hdots, \fa_n$ be a set of ideals of $R$ such that $i \neq j$ implies $\fa_i + \fa_j = R$. Then we have
+		\begin{align*}
+			R/\angles{\fa_1 \hdots \fa_n} \cong \prod_{i = 1}^n R/\fa_i
+		\end{align*}
+	\end{importantcorollary}
+	This immediately implies the "traditional" form of the Chinese remainder theorem:
+	\begin{corollary}{}{}
+		The set of congruences
+		\begin{align*}
+			n \equiv n_1 \mod p_1\\
+			\hdots\\
+			n \equiv n_k \mod p_k
+		\end{align*}
+		has a solution if $p_1 \hdots p_k \in \bZ_{> 1}$ are pairwise coprime. This solution is unique up to equivalence modulo $\prod p_i$.
+	\end{corollary}
+	\begin{proof}
+		Since the $p_i$ are coprime, the ideals $p_i\bZ \subset \bZ$ fulfill 
+		\begin{align*}
+			p_i\bZ p_j \bZ = p_ip_j\bZ = \bZ.
+		\end{align*} 
+		The Chinese remainder theorem thus tells us
+		\begin{align*}
+			\bZ/p_1 \bZ \times \hdots \times \bZ/p_k\bZ \cong \bZ/\lr(\prod p_i)\bZ,
+		\end{align*}
+		which means that from each tuple $(n_1, \hdots, n_k) \in \bZ/p_1 \bZ \times \hdots \times \bZ/p_k\bZ$, which contains the individual congruences, we can recover an equivalence class $n \in \bZ/\lr(\prod p_i)\bZ$ of solutions, and vice versa.
+	\end{proof}
+	\begin{corollary}
+		\theoremname{Polynomial interpolation}
+		Given a field $K$, distinct elements $x_1, \hdots, x_n \in K$, and arbitrary elements $y_1, \hdots, y_n \in K$, there exists a polynomial $P \in K[X]$ of degree smaller than $n$ such that
+		\begin{align*}
+			\forall i : P(x_i) = y_i
+		\end{align*}
+	\end{corollary}
+	\clearpage
+	\section{A hierarchy of rings}
+	We will introduce many types of rings in this chapter, which can be organized as follows:
+	\begin{figure}[h!]
+		\centering
+		\begin{tabular}{c}
+			$\bZ$, $\bZ[i]$, $K[X]$ for a field $K$\\
+			$\cap$\\
+			\tbf{Euclidean Rings} - Rings in which the Euclidean algorithm
+			works,\\ 
+			giving us a notion of division with remainder.\\
+			$\cap$\\
+			\tbf{Principal Rings} - Rings in which every ideal is generated\\
+			by a single element.\\
+			$\cap$\\
+			\tbf{Factorial Rings} - Rings in which every element\\ 
+			can be uniquely decomposed into irreducible ("prime") factors.\\
+			$\cap$\\
+			\tbf{Integral Rings} - Rings without zero divisors.
+		\end{tabular}
+	\end{figure}
+	\FloatBarrier
+	Note that these terms are arguably slightly nonstandard - Euclidean rings are commonly called "Euclidean domains", Principal rings are commonly called "Principal ideal domains", Factorial rings are commonly called "Unique Factorization domains", and Integral rings are called either "domains" or, if commutativity is required, "Integral domains".
+	\newpar
+	The term "domain" is a mostly outdated concept, now classified as a type of ring, but originating before the notion of a ring had been properly established. This term is no longer used in German - the language from which the term originally came - and as far as I can tell most other languages have similarly abandoned it, for example Bourbaki, and other French resources that followed, similarly use ring-based terminology. 
+	\newpar
+	Since I personally find it unnecessarily confusing to call these objects "domains" instead of just calling them "rings", which is the concept from which we derive them, and since I am creating these notes partly as practice for lectures held in a language that uses the ring-based terminology, I will be sticking to this terminology in English too.
+	
+	\begin{importantdefinition}{Irreducible Element}{}
+		Let $R$ be a commutative ring. Then we call $a \in R$ \tbf{irreducible in $R$} iff:
+		\begin{enumerate}
+			\item $a$ is not a unit, i.e. not invertible
+			\item $a$ cannot be written as a product of two non-units, i.e.
+			\begin{align*}
+				a = bc \implies (b \in R^\times \vee c \in R^\times)
+			\end{align*}
+		\end{enumerate}
+	\end{importantdefinition}
+	Note that:
+	\begin{enumerate}
+		\item Zero is never irreducible, since it is a unit in the zero ring and the product of itself with itself in every other ring.
+		\item An integer $n \in \bZ$ is irreducible iff. $\abs{n}$ is prime.
+		\item An element that is irreducible in a ring $R$ might not be irreducible anymore in a larger ring $S \supset R$. In particular, if $K \supset R$ is a field containing $R$, then every element of $K$ is a unit, and thus every element is reducible in $K$. 
+		
+		Note especially that prime numbers aren't irreducible anymore if we move from $\bZ$ to $\bQ$ or $\bR$. Similarly, the polynomial $X^2 + 1$ is irreducible in $\bR[X]$, but not in $\bC[X]$.
+	\end{enumerate}
+	\begin{importantdefinition}{Integral rings}{}
+		Let $R$ be a ring. Then we call $R$ an \tbf{integral ring} if the product of any two non-zero elements is non-zero.
+	\end{importantdefinition}
+	\begin{importantdefinition}{Factorial rings}{}
+		Let $R$ be a commutative integral ring. Then we call $R$ a \tbf{factorial ring} iff. every $a \in R$ that is not zero or a unit can be represented as a product of irreducible elements, such that this representation is unique up to multiplication by units.
+	\end{importantdefinition}
+	\begin{example}
+		The ring
+		\begin{align*}
+			\bZ[\sqrt{-5}] := \lr{a + bi\sqrt{5} | a,b \in \bZ} \subset \bC
+		\end{align*}
+		is an integral ring, but not a factorial ring. We can write:
+		\begin{align*}
+			6 = 2 \cdot 3 = (1 + \sqrt{-5}) \cdot (1 - \sqrt{-5}),
+		\end{align*}
+		and these are two decompositions into irreducible factors that differ by more than just multiplication by units.
+	\end{example}
+	\begin{importantdefinition}{Principal rings}{}
+		Let $R$ be a commutative integral ring. Then we call $R$ a \tbf{principal ring} if every ideal in $R$ is a principal ideal, i.e. every ideal can be generated from a single element.
+	\end{importantdefinition}
+	\begin{theorem}
+		Every principal ring is a factorial ring.
+	\end{theorem}
+	\begin{importantdefinition}{Euclidean rings}{}
+		A Euclidean domain is an integral ring with a map $\sigma : R \setminus \lr{0} \to \bN$ such that for all $a,b \in R$ with $a \neq 0$, there exist $q,r \in R$ such that
+		\begin{align*}
+			b = aq +r
+		\end{align*}
+		and either $r = 0$ or $\sigma(r) < \sigma(a)$.
+	\end{importantdefinition}
+	Equivalently, $\sigma$ can be replaced by a partial order on $R$ such that $0$ is the smallest element and such that no element is the start of an infinitely descending chain. 
+	\newpar
+	Some examples - whose Euclideanness we will prove later - include:
+	\begin{enumerate}
+		\item $R = \bZ$, $\sigma(n) = \abs{n}$,
+		\item $R = K[X]$, $\sigma(P) = \deg P$,
+		\item $R = \bZ[i]$, $\sigma(a + bi) = a^2 + b^2$.
+	\end{enumerate}
+	\begin{theorem}
+		Assuming the axiom of choice, every Euclidean ring is a principal ring.
+	\end{theorem}
+	\begin{theorem}
+		Every Euclidean ring is factorial (even without the axiom of choice).
+	\end{theorem}
+	\begin{corollary}
+		Let $K$ be a field. Then $K[X]$ is factorial and, assuming choice, principal.
+	\end{corollary}
+	\clearpage
+	\section{A deep dive into polynomials}
+	\begin{importanttheorem}{Eisenstein's Criterion over $\bZ$}{}
+		Let $P = \sum_{i = 0}^n a_i X^i \in \bZ[X]$ be a polynomial with integer coefficients. Let $p \in \bN$ be a prime. Then $P$ is irreducible over $\bQ[X]$ if:
+		\begin{enumerate}
+			\item $p \nmid a_n$
+			\item $\forall i \in \lr{1, \hdots, n-1} : p ~|~ a_i$ 
+			\item $p^2 \nmid a_0$
+		\end{enumerate}
+	\end{importanttheorem}
+	\begin{proof}
+		Assume that this criterion holds, but that $P$ is not irreducible in $\bQ[X]$. Then there exists a factorization $P = Q \cdot R$ with $Q, R \in \bQ[X]$, where $\deg Q := n_1$, $\deg R := n_1$, $n_1 + n_2 = n$. Reducing the coefficients modulo $p$, we get a factorization
+		\begin{align*}
+			\ol P = \ol Q \cdot \ol R \in \bF_p[X]
+		\end{align*}
+		By Eisenstein's condition, we have $\ol P = \ol a_n X^n$, where $\ol a_n \neq \ol 0$. It follows that $\ol Q = \ol q_{n_1} X^{n_1}$ and $\ol R = \ol r_{n_2} X^{n_2}$, where $\ol q_{n_1}, \ol r_{n_2} \neq \ol 0$. But then $q_0$ and $r_0$ must have been divisible by $p$, contradicting $p^2 \nmid a_0$.
+	\end{proof}
+	\chapter{Fields}
+	\section{Field Extensions}
+	\begin{importantdefinition}{Field Extension}{}
+		Let $L$ be a field and $K$ be a subfield of $L$. Then we call the pair $L \supset K$ a \tbf{field extension of $K$}. 
+	\end{importantdefinition}
+	This pair is frequently denoted as $L/K$, despite this construction not having anything to do with any sort of quotient object. I will try to stick to the simpler, more intuitive notation $L \supset K$, but there is a high chance I will slip up at some points :)
+	\begin{definition}
+		Let $L \supset K$ be a field extension. Let $\alpha_1, \hdots, \alpha_n \in L$. Then $K(\alpha_1, \hdots, \alpha_n)$ denotes the field generated by $K \cup \lr{\alpha_1, \hdots, \alpha_n}$.
+	\end{definition}
+	\begin{importantdefinition}{Algebraic Number, Transcendent Number}{}
+		Let $L \supset K$ be a field extension. Let $\alpha \in L$ then:
+		\begin{enumerate}
+			\item We call $\alpha$ \tbf{algebraic over $K$} if there exists a non-zero polynomial $P \in K[Y]$ such that $P(\alpha) = 0$.
+			\item If $\alpha$ isn't algebraic over $K$, we call it \tbf{transcendent over $K$}.
+		\end{enumerate}
+	\end{importantdefinition}
+	\begin{importanttheorem}{Minimal Polynomial}{}
+		Let $L \supset K$ be a field extension. Let $\alpha \in L$ be algebraic over $K$. Then there exists exactly one normalized polynomial $P \in K[X]$ such that $P$ is the smallest degree polynomial that has $\alpha$ as a root.
+	\end{importanttheorem}
+	\begin{proofsketch}
+		Since $\alpha$ is algebraic, the evaluation map $\phi_\alpha : K[X] \to L$ is not injective. Therefore, its kernel is non-trivial.
+		Since $K$ is a field, $K[X]$ is a principal ideal domain. Therefore, there exists a polynomial $P$ such that $\ker \phi_\alpha = \angles{P}$. Every other normalized polynomial in $\angles{P}$ now "clearly" has a strictly larger degree than $P$.
+	\end{proofsketch}
+	We can immediately establish a long list of properties of minimal polynomials in one proof:
+	\begin{theorem}
+		Let $L \supset K$ be a field extension, let $\alpha \in L$ be algebraic over $K$, and let $P$ be its minimal polynomial. Then:
+		\begin{enumerate}
+			\item $P$ is irreducible over $K$.
+			\item Every $Q \in P[X]$ with $Q(\alpha) = 0$ is divisible by $P$. In particular, if $Q$ is normed and irreducible, it is already the minimal polynomial of $\alpha$.
+			\item $\Frac(K[\alpha])$ is isomorphic to $K[X]/\angles{P}$, with the isomorphism given by $\alpha \mapsto X$. In particular, if $P$ has degree $n$, then the set $1, \alpha, \alpha^2, \hdots, \alpha^{n-1}$ forms a $K$-basis of $\Frac(K[\alpha])$.
+		\end{enumerate}
+	\end{theorem}
+	\chapter{Galois Theory}
+\end{document}
